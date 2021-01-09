@@ -1,0 +1,6 @@
+python-dotenv
+graphene
+Flask-GraphQL
+sqlalchemy
+psycopg2  # Needed for SqlAlchemy Postgres connection
+graphene-sqlalchemy
