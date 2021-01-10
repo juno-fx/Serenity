@@ -1,18 +1,75 @@
 version: '3.7'
 
-services:
+volumes:
+  serenity_data:
+    driver: local
+  auth_data:
+    driver: local
+
+networks:
+  cluster:
+    driver: bridge
   serenity:
-    image: gitlab.hatfieldfx.com:9005/dev/serenity:dev
+    driver: bridge
+  authentication:
+    driver: bridge
+
+services:
+  # app stack
+  serenity:
+    image: hatfieldfx/serenity
     build:
       context: .
       dockerfile: ./Dockerfile
+    environment:
+      AUTH: keycloak.auth.svc.cluster.local # authentication endpoint for reroute
     volumes:
       - ./:/app
     ports:
       - 3030:3030
     env_file:
       - .env
+    depends_on:
+      - db
+    networks:
+      - serenity
+      - cluster
+
   db:
     image: postgres:9.6.20-alpine
     env_file:
       - .env
+    volumes:
+      - serenity_data:/var/lib/postgresql/data
+    networks:
+      - serenity
+
+  # auth stack
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      DB_ADDR: auth-db
+      DB_DATABASE: auth
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - auth-db
+    links:
+      # TODO: Make sure this matches the kube deployment fqdn
+      - keycloak.auth.svc.cluster.local
+    networks:
+      - authentication
+      - cluster
+
+  auth-db:
+    image: postgres:9.6.20-alpine
+    environment:
+      POSTGRES_DB: auth
+    env_file:
+      - .env
+    volumes:
+      - auth_data:/var/lib/postgresql/data
+    networks:
+      - authentication
