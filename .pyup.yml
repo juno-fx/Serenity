@@ -3,3 +3,18 @@
 
 schedule: ''
 update: false
+
+branch: dev
+
+assignees:
+ - b-sea
+
+requirements:
+    - requirements/deploy.txt:
+        pin: True
+    - requirements/dev.txt:
+        pin: True
+    - requirements/docs.txt:
+        pin: True
+    - requirements/test.txt:
+        pin: True
