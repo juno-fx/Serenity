@@ -4,6 +4,7 @@
 [![Updates](https://pyup.io/repos/github/HatfieldFX/serenity/shield.svg)](https://pyup.io/repos/github/HatfieldFX/serenity/)
 [![Python 3](https://pyup.io/repos/github/HatfieldFX/serenity/python-3-shield.svg)](https://pyup.io/repos/github/HatfieldFX/serenity/)
 [![HFX](https://img.shields.io/discord/591914197219016707.svg?color=7289da&label=HFX&logo=discord)](https://discord.gg/ZDJqZek)
+[![Documentation Status](https://readthedocs.org/projects/hfx-serenity/badge/?version=latest)](https://hfx-serenity.readthedocs.io/en/latest/)
 
 ## Development Setup
 
