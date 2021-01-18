@@ -56,9 +56,6 @@ services:
       - 8080:8080
     depends_on:
       - auth-db
-    links:
-      # TODO: Make sure this matches the kube deployment fqdn
-      - keycloak.auth.svc.cluster.local
     networks:
       - authentication
       - cluster
