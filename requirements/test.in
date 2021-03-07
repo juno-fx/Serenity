@@ -1,2 +1,4 @@
+python-dotenv
 coverage
 pylint
+tox

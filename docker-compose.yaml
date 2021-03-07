@@ -9,10 +9,20 @@ services:
     volumes:
       - ./:/app
     ports:
-      - 3030:3030
+      - 5000:3030
+    links:
+      - serenity-db
     env_file:
       - .env
-  db:
-    image: postgres:9.6.20-alpine
+    environment:
+      - NEO4J_HOST=bolt://serenity-db:7687
+
+  serenity-db:
+    image: neo4j:4.2.2
+    ports:
+      - 7474:7474  # http
+      - 7687:7687  # bolt
     env_file:
       - .env
+    environment:
+      - NEO4J_AUTH=${NEO4J_USER}/${NEO4J_PSWD}

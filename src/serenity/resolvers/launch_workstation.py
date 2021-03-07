@@ -11,16 +11,18 @@ __all__ = [
 LOG = logging.getLogger(__name__)
 
 
-def launch_workstations(image_id, user, ip_address):
+def launch_workstations(image_id: str, user: str) -> 'ProcessResult':
     """
-    :param str image_id:
-    :param str user:
-    :param str ip_address:
+    Launch a workstation
+
+    :param image_id: the image id to load on this workstation
+    :param user: the user to assign to this workstation
     """
+    # pylint: disable=broad-except
     LOG.debug('launch workstation...')
     try:
         process = subprocess.Popen(
-            ['kubectl', '...'],  # TODO: Replace this with the real command
+            ['kubectl', '...', image_id, '...', user],  # TODO: Replace this with the real command
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )

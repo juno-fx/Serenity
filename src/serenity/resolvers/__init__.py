@@ -1,2 +1,2 @@
-from .infinity import *
+from .graph import *
 from .launch_workstation import *
